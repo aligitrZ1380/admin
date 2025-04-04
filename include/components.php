@@ -5,7 +5,7 @@
  * COMPONENTS.PHP
  * ==========================================================
  *
- * Library of static html components for the admin area. This file must not be executed directly. © 2021 board.support. All rights reserved.
+ * Library of static html components for the admin area. This file must not be executed directly. ï¿½ 2021 board.support. All rights reserved.
  *
  */
 
@@ -488,6 +488,7 @@ function sb_direct_message_box() { ?>
             <div class="sb-input-setting sb-type-text sb-direct-message-subject">
                 <input type="text" placeholder="<?php sb_e('Email subject') ?>">
             </div>
+            
             <div class="sb-title sb-direct-message-title-subject"><?php sb_e('Message') ?></div>
             <div class="sb-input-setting sb-type-textarea"><textarea placeholder="<?php sb_e('Write here your message...') ?>" required></textarea></div>
             <div class="sb-bottom">
@@ -651,7 +652,11 @@ function sb_component_admin() {
                     </a>
                     <?php 
                   if ($is_admin || sb_get_setting('admin-agents-users-area')) echo '<a id="sb-users"><span>' . sb_('Users') . '</span></a>';
-                  if ($is_admin) echo '<a id="sb-settings"><span>' . sb_('Settings') . '</span></a><a id="sb-reports"><span>' . sb_('Reports') . '</span></a>';
+                  if ($is_admin) 
+            echo '<a id="sb-settings"><span>' . sb_('Settings') . '</span></a>
+                  <a id="sb-reports"><span>' . sb_('Reports') . '</span></a>
+        <a id="sb_notification_form"><span>' . sb_('Notification') . '</span></a>
+        <a id="sb-Version"><span>' . sb_('Version') . '</span></a>';
                     ?>
                 </div>
             </div>
@@ -1210,6 +1215,190 @@ function sb_component_admin() {
                         </div>
                     </div>
                 </div>
+    <div class="sb-area sb_notification_form">
+        <div class="sb-top-bar">
+            <div>
+                <h2>
+                    <?php sb_e('Push Notifications') ?>
+                </h2>
+                <div class="sb-menu-wide">
+                    <div>
+                        <?php sb_e('All') ?>
+                        <span data-count="0">(0)</span>
+                    </div>
+                    <ul>
+                        <li data-type="all" class="sb-active">
+                            <?php sb_e('All') ?>
+                            <span data-count="0">(0)</span>
+                        </li>
+                        <li data-type="pending">
+                            <?php sb_e('Pending') ?>
+                            <span data-count="0">(0)</span>
+                        </li>
+                        <li data-type="sent">
+                            <?php sb_e('Sent') ?>
+                            <span data-count="0">(0)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="sb-search-btn">
+                    <i class="sb-icon sb-icon-search"></i>
+                    <input type="text" autocomplete="false" placeholder="<?php sb_e('Search notifications...') ?>" />
+                </div>
+                <a class="sb-btn sb-icon sb-new-notification">
+                    <i class="sb-icon-plus"></i><?php sb_e('Send New Notification') ?>
+                </a>
+            </div>
+        </div>
+        <div class="sb-board">
+            <div class="sb-scroll-area">
+                <table class="sb-table sb-table-notifications">
+                    <thead>
+                        <tr>
+                            <th class="sb-td-checkbox">
+                                <input type="checkbox" />
+                            </th>
+                            <th class="sb-th-title">
+                                <?php sb_e('Title') ?>
+                            </th>
+                            <th class="sb-th-status">
+                                <?php sb_e('Status') ?>
+                            </th>
+                            <th class="sb-th-date sb-mobile-hidden">
+                                <?php sb_e('Sent Date') ?>
+                            </th>
+                            <th class="sb-th-message sb-mobile-hidden">
+                                <?php sb_e('Message') ?>
+                            </th>
+                            <th class="sb-th-actions"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="sb-loading sb-loading-table"></div>
+        </div>
+        
+    </div>
+    
+
+    <!-- Dialog Templates -->
+    <div class="sb-dialog-box-templates" style="display:none">
+        <!-- New Notification Dialog -->
+        <div id="sb-notification-dialog">
+            <div class="sb-notification-form">
+                <div class="sb-input-setting sb-type-text">
+                    <label><?php sb_e('Title') ?></label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="sb-input-setting sb-type-textarea">
+                    <label><?php sb_e('Message') ?></label>
+                    <textarea name="message" required></textarea>
+                </div>
+                <div class="sb-input-setting sb-type-select">
+                    <label><?php sb_e('Target Users') ?></label>
+                    <select name="target">
+                        <option value="all"><?php sb_e('All Users') ?></option>
+                        <option value="active"><?php sb_e('Active Users') ?></option>
+                        <option value="admin"><?php sb_e('Admins Only') ?></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Version Dialog -->
+        <div id="sb-version-dialog">
+            <div class="sb-version-form">
+                <div class="sb-input-setting sb-type-text">
+                    <label><?php sb_e('Version Name') ?></label>
+                    <input type="text" name="version_name" required>
+                </div>
+                <div class="sb-input-setting sb-type-textarea">
+                    <label><?php sb_e('Description') ?></label>
+                    <textarea name="description" required></textarea>
+                </div>
+                <div class="sb-input-setting sb-type-checkbox">
+                    <label><?php sb_e('Force Update') ?></label>
+                    <input type="checkbox" name="force_update">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sb_notification_form">
+    <div class="sb-top-bar">
+        <div>
+            <h2><?php sb_e('Push Notifications') ?></h2>
+            <div class="sb-menu-wide sb-menu-notifications">
+                <div>
+                    <?php sb_e('All') ?>
+                    <span data-count="0">(0)</span>
+                </div>
+                <ul>
+                    <li data-type="all" class="sb-active">
+                        <?php sb_e('All') ?>
+                        <span data-count="0">(0)</span>
+                    </li>
+                    <li data-type="pending">
+                        <?php sb_e('Pending') ?>
+                        <span data-count="0">(0)</span>
+                    </li>
+                    <li data-type="sent">
+                        <?php sb_e('Sent') ?>
+                        <span data-count="0">(0)</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="sb-menu-mobile">
+                <i class="sb-icon-menu"></i>
+                <ul>
+                    <li>
+                        <a data-value="delete" class="sb-btn-icon sb-btn-red" data-sb-tooltip="<?php sb_e('Delete') ?>">
+                            <i class="sb-icon-delete"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="sb-btn sb-icon sb-new-notification">
+                            <i class="sb-icon-plus"></i><?php sb_e('New') ?>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="sb-board">
+        <div class="sb-scroll-area">
+            <table class="sb-table sb-table-notifications">
+                <thead>
+                    <tr>
+                        <th class="sb-td-checkbox">
+                            <input type="checkbox" />
+                        </th>
+                        <th class="sb-th-title">
+                            <?php sb_e('Title') ?>
+                        </th>
+                        <th class="sb-th-message sb-mobile-hidden">
+                            <?php sb_e('Message') ?>
+                        </th>
+                        <th class="sb-th-date sb-mobile-hidden">
+                            <?php sb_e('Sent Date') ?>
+                        </th>
+                        <th class="sb-th-status sb-mobile-hidden">
+                            <?php sb_e('Status') ?>
+                        </th>
+                        <th class="sb-th-actions">
+                            <i class="sb-icon-more"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic Content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
             <?php } ?>
         </main>
         <?php
@@ -1229,6 +1418,7 @@ function sb_component_admin() {
         <form class="sb-upload-form-admin sb-upload-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
             <input type="file" name="files[]" class="sb-upload-files" multiple />
         </form>
+        
         <div class="sb-info-card"></div>
         <?php } else { sb_login_box(); } ?>
         <div class="sb-lightbox sb-lightbox-media">
@@ -1244,6 +1434,45 @@ function sb_component_admin() {
     if (!empty(sb_get_setting('custom-js'))) echo '<script id="sb-custom-js" src="' . sb_get_setting('custom-js') . '"></script>';
     if (!empty(sb_get_setting('custom-css'))) echo '<link id="sb-custom-css" rel="stylesheet" type="text/css" href="' . sb_get_setting('custom-css') . '" media="all">';
     ?>
+<?php } ?>
+<?php
+function sb_notification_form() { ?>
+    <div class="sb-notification-form sb-lightbox">
+        <div class="sb-info"></div>
+        <div class="sb-top-bar">
+            <div class="sb-title"><?php sb_e('New Notification') ?></div>
+            <div>
+                <a class="sb-close sb-btn-icon">
+                    <i class="sb-icon-close"></i>
+                </a>
+            </div>
+        </div>
+        <div class="sb-main">
+            <div class="sb-input">
+                <span><?php sb_e('Title') ?></span>
+                <input id="title" type="text" required>
+            </div>
+            <div class="sb-input">
+                <span><?php sb_e('Message') ?></span>
+                <textarea id="message" required></textarea>
+            </div>
+            <div class="sb-input">
+                <span><?php sb_e('Icon') ?></span>
+                <div class="sb-icon-selector">
+                    <i class="sb-icon-notification" data-value="sb-icon-notification"></i>
+                    <i class="sb-icon-alert" data-value="sb-icon-alert"></i>
+                    <i class="sb-icon-success" data-value="sb-icon-success"></i>
+                    <i class="sb-icon-info" data-value="sb-icon-info"></i>
+                </div>
+                <input type="hidden" id="icon">
+            </div>
+        </div>
+        <div class="sb-bottom">
+            <div class="sb-btn sb-send-notification">
+                <?php sb_e('Send Notification') ?>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 <?php
 
@@ -1277,6 +1506,7 @@ function sb_dialogflow_languages_list() {
  * 2. Echo the apps conversation panel container
  * 
  */
+ 
 
 function sb_apps_area($apps) {
     $apps_wp = ['SB_WP', 'SB_WOOCOMMERCE', 'SB_UMP']; 
